@@ -1,0 +1,10 @@
+// Cloudflare Workers 静态资源部署配置
+// 本项目是纯静态站点（html + js + json），没有 Worker 脚本，
+// 只需声明 assets 目录，wrangler deploy 就会把整个目录作为静态资源发布。
+{
+  "name": "finance",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./"
+  }
+}
