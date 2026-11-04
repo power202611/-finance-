@@ -1,0 +1,9 @@
+# 只发布网站需要的文件：页面 + 图表库 + 视图数据
+*
+!/.gitignore
+!/金融仪表盘.html
+!/chart.umd.min.js
+!/data
+/data/**
+!/data/view/
+!/data/view/**
