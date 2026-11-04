@@ -1,11 +1,6 @@
-# 只发布网站需要的文件：页面 + 图表库 + 视图数据 + Cloudflare 配置
+# 只发布 public/（由 main.py 生成），其余一概不上传
 *
 !/.gitignore
-!/index.html
-!/金融仪表盘.html
-!/chart.umd.min.js
 !/wrangler.jsonc
-!/data
-/data/**
-!/data/view/
-!/data/view/**
+!/public/
+!/public/**
