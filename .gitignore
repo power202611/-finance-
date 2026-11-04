@@ -1,7 +1,7 @@
-# 只发布 public/（由 main.py 生成），其余一概不上传
+# 只发布 docs/（由 main.py 生成），其余一概不上传
 *
 !/.gitignore
 !/.nojekyll
 !/wrangler.jsonc
-!/public/
-!/public/**
+!/docs/
+!/docs/**
