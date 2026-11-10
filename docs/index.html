@@ -64,6 +64,13 @@ body { font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaH
 .chart-box { background:#fff; border:1px solid #f0f0f0; border-radius:8px; padding:12px; min-width:0; }
 .chart-box canvas { width:100% !important; height:300px !important; }
 
+/* 时间跨度切换按钮（meta.ranges 的板块显示） */
+.range-bar { display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 10px; }
+.range-btn { padding:3px 12px; font-size:12px; border:1px solid #d5d9e0; background:#fff;
+  border-radius:14px; cursor:pointer; color:#5f6672; }
+.range-btn:hover { border-color:#7d3c98; color:#7d3c98; }
+.range-btn.active { background:#7d3c98; border-color:#7d3c98; color:#fff; }
+
 /* 图表并排 / 表格 / ETF 卡片选中态 */
 .chart-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:12px; margin-bottom:14px; }
@@ -130,7 +137,7 @@ tfoot td { background:#f8f9fb; font-weight:700; color:#1a1a2e; border-top:2px so
   <div class="header">
     <h1>金融仪表盘 · 指数ETF &amp; 大宗商品</h1>
     <div class="subtitle">数据来自交易所 / 官方机构公开源</div>
-    <div class="update-time">页面生成: 2026-11-09 14:26:47（数据由 data/view/*.json 动态加载）</div>
+    <div class="update-time">页面生成: 2026-11-10 18:51:43（数据由 data/view/*.json 动态加载）</div>
   </div>
   
 <div class="section" id="sec-hs300">
@@ -231,7 +238,7 @@ tfoot td { background:#f8f9fb; font-weight:700; color:#1a1a2e; border-top:2px so
 </div>
 <script>
 
-var SECTIONS = [{"id": "hs300", "title": "沪深300 ETF", "color": "#c0392b", "freq": "daily", "source": "沪深交易所 · ETF基金份额（沪市清算数据 / 深市东财份额）", "kind": "etf"}, {"id": "zz500", "title": "中证500 ETF", "color": "#2980b9", "freq": "daily", "source": "沪深交易所 · ETF基金份额（沪市清算数据 / 深市东财份额）", "kind": "etf"}, {"id": "margin", "title": "融资融券", "color": "#1a5276", "freq": "daily", "source": "沪深交易所 · 两融每日交易数据", "kind": "margin"}, {"id": "cu-price", "title": "铜价", "color": "#b87333", "freq": "daily", "source": "新浪主力连续 · 生意社现货报价（100ppi，免费公开口径）", "kind": "dict"}, {"id": "cu-inv", "title": "铜库存", "color": "#a0522d", "freq": "daily", "source": "东方财富期货库存 · 金十数据 LME 库存报告（LME 官方口径）", "kind": "dict"}, {"id": "alu", "title": "沪铝", "color": "#d35400", "freq": "daily", "source": "新浪主力连续 · 生意社现货报价（100ppi，免费公开口径）", "kind": "dict"}, {"id": "inv", "title": "铝锭库存", "color": "#e67e22", "freq": "daily", "source": "东方财富期货库存 · 金十数据 LME 库存报告（LME 官方口径）", "kind": "dict"}, {"id": "li", "title": "碳酸锂", "color": "#1a7a4c", "freq": "daily", "source": "新浪主力连续 · 生意社现货报价（100ppi，免费公开口径）", "kind": "dict"}, {"id": "liw", "title": "碳酸锂仓单", "color": "#2e8d5f", "freq": "daily", "source": "东方财富期货库存（交易所口径）", "kind": "dict"}, {"id": "coal", "title": "煤炭价格", "color": "#2c3e50", "freq": "daily", "source": "CCTD 中国煤炭市场网", "kind": "groups"}, {"id": "coal-spot", "title": "焦煤焦炭现货", "color": "#34495e", "freq": "daily", "source": "生意社现货报价(焦煤/焦炭日度) · 东方财富现货(动力煤月度)", "kind": "dict"}, {"id": "scfi", "title": "SCFI运价", "color": "#0e7a8a", "freq": "weekly", "source": "上海航运交易所 SSE · SCFI", "kind": "dict"}, {"id": "ctfi", "title": "油运运价", "color": "#7d3c98", "freq": "weekly", "source": "上海航运交易所 SSE · CTFI（TCE 折算万美元/天）· 波罗的海 BDTI/BCTI（东方财富转载）", "kind": "dict"}, {"id": "gold", "title": "黄金储备", "color": "#c9971a", "freq": "monthly", "source": "国家外汇管理局 · 官方储备资产（东方财富转载）", "kind": "dict"}, {"id": "cyp", "title": "长电来水发电", "color": "#2980b9", "freq": "quarterly", "source": "长江电力 · 季度发电量完成情况公告（上交所）", "kind": "items"}, {"id": "tg", "title": "三峡水位", "color": "#16a085", "freq": "daily", "source": "长江水文网 · 实时水雨情", "kind": "list"}];
+var SECTIONS = [{"id": "hs300", "title": "沪深300 ETF", "color": "#c0392b", "freq": "daily", "source": "沪深交易所 · ETF基金份额（沪市清算数据 / 深市东财份额）", "kind": "etf", "ranges": false}, {"id": "zz500", "title": "中证500 ETF", "color": "#2980b9", "freq": "daily", "source": "沪深交易所 · ETF基金份额（沪市清算数据 / 深市东财份额）", "kind": "etf", "ranges": false}, {"id": "margin", "title": "融资融券", "color": "#1a5276", "freq": "daily", "source": "沪深交易所 · 两融每日交易数据", "kind": "margin", "ranges": false}, {"id": "cu-price", "title": "铜价", "color": "#b87333", "freq": "daily", "source": "新浪主力连续 · 生意社现货报价（100ppi，免费公开口径）", "kind": "dict", "ranges": false}, {"id": "cu-inv", "title": "铜库存", "color": "#a0522d", "freq": "daily", "source": "东方财富期货库存 · 金十数据 LME 库存报告（LME 官方口径）", "kind": "dict", "ranges": false}, {"id": "alu", "title": "沪铝", "color": "#d35400", "freq": "daily", "source": "新浪主力连续 · 生意社现货报价（100ppi，免费公开口径）", "kind": "dict", "ranges": false}, {"id": "inv", "title": "铝锭库存", "color": "#e67e22", "freq": "daily", "source": "东方财富期货库存 · 金十数据 LME 库存报告（LME 官方口径）", "kind": "dict", "ranges": false}, {"id": "li", "title": "碳酸锂", "color": "#1a7a4c", "freq": "daily", "source": "新浪主力连续 · 生意社现货报价（100ppi，免费公开口径）", "kind": "dict", "ranges": false}, {"id": "liw", "title": "碳酸锂仓单", "color": "#2e8d5f", "freq": "daily", "source": "东方财富期货库存（交易所口径）", "kind": "dict", "ranges": false}, {"id": "coal", "title": "煤炭价格", "color": "#2c3e50", "freq": "daily", "source": "CCTD 中国煤炭市场网", "kind": "groups", "ranges": false}, {"id": "coal-spot", "title": "焦煤焦炭现货", "color": "#34495e", "freq": "daily", "source": "生意社现货报价(焦煤/焦炭日度) · 东方财富现货(动力煤月度)", "kind": "dict", "ranges": false}, {"id": "scfi", "title": "SCFI运价", "color": "#0e7a8a", "freq": "weekly", "source": "上海航运交易所 SSE · SCFI", "kind": "dict", "ranges": false}, {"id": "ctfi", "title": "油运运价", "color": "#7d3c98", "freq": "weekly", "source": "上海航运交易所 SSE · CTFI（TCE 折算万美元/天）· 波罗的海 BDTI/BCTI（东方财富转载）", "kind": "dict", "ranges": true}, {"id": "gold", "title": "黄金储备", "color": "#c9971a", "freq": "monthly", "source": "国家外汇管理局 · 官方储备资产（东方财富转载）", "kind": "dict", "ranges": false}, {"id": "cyp", "title": "长电来水发电", "color": "#2980b9", "freq": "quarterly", "source": "长江电力 · 季度发电量完成情况公告（上交所）", "kind": "items", "ranges": false}, {"id": "tg", "title": "三峡水位", "color": "#16a085", "freq": "daily", "source": "长江水文网 · 实时水雨情", "kind": "list", "ranges": false}];
 var charts = {};
 var COLORS = ['#c0392b', '#2980b9', '#f39c12', '#2ecc71', '#9b59b6',
               '#1abc9c', '#e67e22', '#34495e', '#7f8c8d', '#d35400'];
@@ -296,9 +303,41 @@ function buildDatasets(v) {
   });
 }
 
+// ===== 时间跨度切换（meta.ranges 的板块）=====
+// RANGE_OPTIONS: '0'=全部，其余=近 N 年；选择记录在 RANGE_SEL[id]
+var RANGE_OPTIONS = [['1', '近1年'], ['2', '近2年'], ['3', '近3年'],
+                     ['5', '近5年'], ['10', '近10年'], ['0', '全部']];
+var RANGE_SEL = {};
+var SECTION_VIEWS = {};
+
+// 按 RANGE_SEL 切片 view 的 dates 与各系列 data（卡片仍显示全量统计，不改动）
+function applyRange(id, v) {
+  var n = parseInt(RANGE_SEL[id] || '0', 10);
+  if (!n || !v || !v.dates || !v.dates.length) return v;
+  var last = new Date(v.dates[v.dates.length - 1]);
+  var start = new Date(last.getTime());
+  start.setFullYear(start.getFullYear() - n);
+  var i0 = v.dates.length;
+  for (var i = 0; i < v.dates.length; i++) {
+    if (new Date(v.dates[i]) >= start) { i0 = i; break; }
+  }
+  if (i0 >= v.dates.length) return v;
+  var out = {};
+  for (var k in v) out[k] = v[k];
+  out.dates = v.dates.slice(i0);
+  out.series = v.series.map(function (s) {
+    var o = {}; for (var k2 in s) o[k2] = s[k2];
+    o.data = (s.data || []).slice(i0);
+    return o;
+  });
+  return out;
+}
+
 function drawChart(id, v) {
   var cv = document.getElementById('chart-' + id);
   if (!cv || typeof Chart === 'undefined') return;
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+  v = applyRange(id, v);
   var ds = buildDatasets(v);
   var units = [], seen = {};
   v.series.forEach(function (s) { if (!seen[s.unit]) { seen[s.unit] = 1; units.push(s.unit); } });
@@ -876,14 +915,26 @@ function renderSection(meta, v) {
      '<span><span class="dot red"></span> ' + esc(v.legend[0]) + '</span>' +
      '<span><span class="dot green"></span> ' + esc(v.legend[1]) + '</span></div>') : '';
   var h3 = v.chart_title ? '<h3>' + esc(v.chart_title) + '</h3>' : '';
+  // 时间跨度切换按钮（仅 meta.ranges 的板块，如油运）
+  var rangeBar = '';
+  if (meta.ranges) {
+    var cur = RANGE_SEL[meta.id] || '0';
+    rangeBar = '<div class="range-bar">' + RANGE_OPTIONS.map(function (o) {
+      var act = cur === o[0] ? ' active' : '';
+      return '<button class="range-btn' + act + '" data-section="' + meta.id +
+             '" data-range="' + o[0] + '">' + o[1] + '</button>';
+    }).join('') + '</div>';
+  }
   body.innerHTML = '<div class="summary-row">' + cards + '</div>' + note +
-    '<div class="chart-box">' + h3 + legend +
+    '<div class="chart-box">' + h3 + rangeBar + legend +
     '<canvas id="chart-' + meta.id + '"></canvas>' + srcCaption(v.source) + '</div>';
   if (badge) {
-    var n = v.dates.length;
+    // badge 按当前所选跨度计数（切到近N年时显示该范围内的期数）
+    var rv = applyRange(meta.id, v);
+    var n = rv.dates.length;
     var unitTxt = v.freq === 'monthly' ? '个月'
       : (v.freq === 'weekly' ? '期' : (v.freq === 'quarterly' ? '个季度' : '个交易日'));
-    var lastD = v.dates.length ? v.dates[v.dates.length - 1] : '';
+    var lastD = n ? rv.dates[n - 1] : '';
     badge.textContent = n + ' ' + unitTxt + (lastD ? ' · ' + lastD : '');
   }
   setNav(meta.id, true);
@@ -908,7 +959,7 @@ if (IS_FILE) {
 function loadSection(meta) {
   fetch('data/view/' + meta.id + '.json', { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function (v) { renderSection(meta, v); })
+    .then(function (v) { SECTION_VIEWS[meta.id] = v; renderSection(meta, v); })
     .catch(function () {
       var body = document.getElementById('body-' + meta.id);
       if (body) {
@@ -922,6 +973,18 @@ function loadSection(meta) {
 }
 
 SECTIONS.forEach(loadSection);
+
+// 时间跨度切换：点击按钮后用缓存的 view 重画（不重新请求 JSON）
+document.addEventListener('click', function (e) {
+  var b = e.target && e.target.closest ? e.target.closest('.range-btn') : null;
+  if (!b) return;
+  var id = b.getAttribute('data-section');
+  RANGE_SEL[id] = b.getAttribute('data-range');
+  var meta = null;
+  SECTIONS.forEach(function (m) { if (m.id === id) meta = m; });
+  var v = SECTION_VIEWS[id];
+  if (meta && v) renderSection(meta, v);
+});
 
 // 窗口尺寸变化时重渲染 ETF（PC 画全部曲线 / 手机端画单条）
 var rzTimer = null;
