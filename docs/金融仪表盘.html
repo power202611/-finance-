@@ -137,7 +137,7 @@ tfoot td { background:#f8f9fb; font-weight:700; color:#1a1a2e; border-top:2px so
   <div class="header">
     <h1>金融仪表盘 · 指数ETF &amp; 大宗商品</h1>
     <div class="subtitle">数据来自交易所 / 官方机构公开源</div>
-    <div class="update-time">页面生成: 2026-11-12 19:11:13（数据由 data/view/*.json 动态加载）</div>
+    <div class="update-time">页面生成: 2026-11-14 12:29:13（数据由 data/view/*.json 动态加载）</div>
   </div>
   
 <div class="section" id="sec-hs300">
@@ -322,9 +322,16 @@ var RANGE_OPTIONS = [['1', '近1年'], ['2', '近2年'], ['3', '近3年'],
 var RANGE_SEL = {};
 var SECTION_VIEWS = {};
 
+// 有时间跨度切换的板块（如油运）默认展示「近1年」，其余默认全部
+function defRange(id) {
+  var m = null;
+  SECTIONS.forEach(function (x) { if (x.id === id) m = x; });
+  return (m && m.ranges) ? '1' : '0';
+}
+
 // 按 RANGE_SEL 切片 view 的 dates 与各系列 data（卡片仍显示全量统计，不改动）
 function applyRange(id, v) {
-  var n = parseInt(RANGE_SEL[id] || '0', 10);
+  var n = parseInt(RANGE_SEL[id] !== undefined ? RANGE_SEL[id] : defRange(id), 10);
   if (!n || !v || !v.dates || !v.dates.length) return v;
   var last = new Date(v.dates[v.dates.length - 1]);
   var start = new Date(last.getTime());
@@ -930,7 +937,7 @@ function renderSection(meta, v) {
   // 时间跨度切换按钮（仅 meta.ranges 的板块，如油运）
   var rangeBar = '';
   if (meta.ranges) {
-    var cur = RANGE_SEL[meta.id] || '0';
+    var cur = RANGE_SEL[meta.id] !== undefined ? RANGE_SEL[meta.id] : defRange(meta.id);
     rangeBar = '<div class="range-bar">' + RANGE_OPTIONS.map(function (o) {
       var act = cur === o[0] ? ' active' : '';
       return '<button class="range-btn' + act + '" data-section="' + meta.id +
