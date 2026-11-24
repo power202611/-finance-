@@ -137,7 +137,7 @@ tfoot td { background:#f8f9fb; font-weight:700; color:#1a1a2e; border-top:2px so
   <div class="header">
     <h1>金融仪表盘 · 指数ETF &amp; 大宗商品</h1>
     <div class="subtitle">数据来自交易所 / 官方机构公开源</div>
-    <div class="update-time">页面生成: 2026-11-14 12:29:13（数据由 data/view/*.json 动态加载）</div>
+    <div class="update-time">页面生成: 2026-11-24 08:29:15（数据由 data/view/*.json 动态加载）</div>
   </div>
   
 <div class="section" id="sec-hs300">
@@ -676,6 +676,9 @@ function renderEtfTable(id, v, idx) {
   if (tfoot) {
     var tsgn = sumChg >= 0 ? '+' : '';
     var tcls = sumChg >= 0 ? 'up' : 'down';
+    // 变化金额合计的符号/配色按金额自身判断（与份额合计符号可能相反）
+    var tAsgn = sumAmt >= 0 ? '+' : '';
+    var tAcls = sumAmt >= 0 ? 'up' : 'down';
     var tpct = sumPrev ? (sumChg / sumPrev * 100) : null;
     tfoot.innerHTML =
       '<tr>' +
@@ -684,7 +687,7 @@ function renderEtfTable(id, v, idx) {
       '<td>-</td>' +
       '<td>' + (nAmt ? fmt(sumTotal, 2) : '-') + '</td>' +
       '<td>' + (nChg ? tsgn + fmt(sumChg, 2) : '-') + '</td>' +
-      '<td class="' + (nChg ? tcls : '') + '">' + (nChg ? tsgn + fmt(sumAmt, 2) : '-') + '</td>' +
+      '<td class="' + (nChg ? tAcls : '') + '">' + (nChg ? tAsgn + fmt(sumAmt, 2) : '-') + '</td>' +
       '<td class="' + (tpct === null ? '' : tcls) + '">' + (tpct === null ? '-' : tsgn + fmt(tpct, 2) + '%') + '</td>' +
       '</tr>';
   }
